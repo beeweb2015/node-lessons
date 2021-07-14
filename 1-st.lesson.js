@@ -2,6 +2,8 @@
 let events = require('events');
 
 let logger = new events.EventEmitter();
+const argv = require('minimist')(process.argv.slice(2));
+
 
 let users=[];
 let msgs=[];
@@ -31,8 +33,10 @@ logger.on('getUsers',  (users) =>{
 logger.on('getMessages',  (msgs) =>{
     msgs.map(msg=>console.log(msg))
 });
-logger.emit("getUsers", users);
-logger.emit("getMessages", msgs);
+
+logger.emit('message', argv.message);
+logger.emit('login', argv.addUser);
+logger.emit('getUsers');
 
 
 
